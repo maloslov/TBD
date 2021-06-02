@@ -18,7 +18,7 @@ CREATE TABLE t_employee (
 	,f_firstname NVARCHAR(50) NOT NULL
 	,f_secondname NVARCHAR(50) NOT NULL
 	,f_thirdname NVARCHAR(50) NULL
-	,f_pass INT NOT NULL
+	,f_pass NVARCHAR(10) NOT NULL
 	,f_duty INT NOT NULL
 	,f_department INT NOT NULL
 	,f_date DATE NOT NULL

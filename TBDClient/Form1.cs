@@ -26,7 +26,6 @@ namespace TBDClient
                 ;Password = {textBox4.Text}
                 ;Integrated Security=True");
             connection = new SqlConnection(connectionString);
-            try
             {
                 // Открываем подключение
                 connection.Open();
@@ -35,10 +34,6 @@ namespace TBDClient
                 this.Hide();
                 subform.Show();
                 MessageBox.Show("Подключение открыто");
-            }
-            catch (SqlException ex)
-            {
-                MessageBox.Show(ex.Message);
             }
         }
         private void subform_closing(object sender, EventArgs e)
