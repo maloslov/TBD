@@ -146,7 +146,7 @@ namespace TBDClient
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.btnConnect);
             this.Name = "Form1";
-            this.Text = "Новая телевизионная сеть";
+            this.Text = "Народная телевизионная сеть";
             this.ResumeLayout(false);
             this.PerformLayout();
 
