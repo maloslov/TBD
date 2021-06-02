@@ -54,34 +54,42 @@ namespace TBDClient
         {
             DataSet data = new DataSet();
             {
+                textEmployee6.Items.Clear();
                 data = getDataFromDB("SELECT * FROM v_department;");
                 if (data.Tables.Count > 0)
                     foreach (DataRow i in data.Tables[0].Rows)
                         textEmployee6.Items.Add(i.ItemArray[0]);
+                textCome2.Items.Clear();
                 data = getDataFromDB("SELECT * FROM v_contract;");
                 if (data.Tables.Count > 0)
                     foreach (DataRow i in data.Tables[0].Rows)
                         textCome2.Items.Add(i.ItemArray[0]);
+                textContent3.Items.Clear();
                 data = getDataFromDB("SELECT * FROM v_content_type;");
                 if (data.Tables.Count > 0)
                     foreach (DataRow i in data.Tables[0].Rows)
                         textContent3.Items.Add(i.ItemArray[0]);
+                textContent4.Items.Clear();
                 data = getDataFromDB("SELECT * FROM v_producer;");
                 if (data.Tables.Count > 0)
                     foreach (DataRow i in data.Tables[0].Rows)
                         textContent4.Items.Add(i.ItemArray[0]);
+                textContract2.Items.Clear();
                 data = getDataFromDB("SELECT * FROM v_contract_type;");
                 if (data.Tables.Count > 0)
                     foreach (DataRow i in data.Tables[0].Rows)
                         textContract2.Items.Add(i.ItemArray[0]);
+                textContract3.Items.Clear();
                 data = getDataFromDB("SELECT * FROM v_counterpart;");
                 if (data.Tables.Count > 0)
                     foreach (DataRow i in data.Tables[0].Rows)
                         textContract3.Items.Add(i.ItemArray[0]);
+                textContract4.Items.Clear();
                 data = getDataFromDB("SELECT * FROM v_content;");
                 if (data.Tables.Count > 0)
                     foreach (DataRow i in data.Tables[0].Rows)
                         textContract4.Items.Add(i.ItemArray[0]);
+                textEmployee5.Items.Clear();
                 data = getDataFromDB("SELECT * FROM v_duty;");
                 if (data.Tables.Count > 0)
                     foreach (DataRow i in data.Tables[0].Rows)
@@ -162,7 +170,7 @@ namespace TBDClient
                 foreach (string s in textContract2.Items)
                     if (s.Equals(textContractType.Text))
                         return;
-                executeCommand($"INSERT INTO t_contract(f_name) VALUES('{textContractType.Text}');");
+                executeCommand($"INSERT INTO t_contract_type(f_name) VALUES('{textContractType.Text}');");
             }
         }
 
@@ -194,7 +202,7 @@ namespace TBDClient
                     if (s.Equals(textCounterpart1.Text))
                         return;
                 executeCommand($"INSERT INTO t_counterpart(f_name,f_fullname) " +
-                    $"VALUES('{textCounterpart1.Text}',{textCounterpart2.Text});");
+                    $"VALUES('{textCounterpart1.Text}','{textCounterpart2.Text}');");
             }
         }
 
