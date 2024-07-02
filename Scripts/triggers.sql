@@ -33,7 +33,7 @@ IF EXISTS((SELECT * FROM t_employee AS t
 	WHERE t.f_firstname=i.f_firstname 
 	AND t.f_secondname = i.f_secondname))
 BEGIN
-	RAISERROR ('Сотрудник уже есть в базе данных!', 16, 1);
+	RAISERROR ('РЎРѕС‚СЂСѓРґРЅРёРє СѓР¶Рµ РµСЃС‚СЊ РІ Р±Р°Р·Рµ РґР°РЅРЅС‹С…!', 16, 1);
 	ROLLBACK TRANSACTION;
 	RETURN
 END
