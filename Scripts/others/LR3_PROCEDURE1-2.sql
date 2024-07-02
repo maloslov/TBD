@@ -1,0 +1,66 @@
+CREATE OR REPLACE PROCEDURE P_CUSTOMER_INSERT_MOD(  
+    F_NEW_NAME IN CHAR, 
+    F_NEW_STREET IN CHAR, 
+    F_NEW_CITY IN CHAR, 
+    F_NEW_STATE IN CHAR, 
+    F_NEW_ZIP IN CHAR, 
+    F_NEW_AREA_CODE IN CHAR, 
+    F_NEW_PHONE_NUMBER IN CHAR, 
+    F_ARTIST_NATIONALITY IN CHAR  
+) 
+AS 
+    ROW_COUNT INTEGER(4); 
+    CURSOR ARTIST_CURSOR IS 
+        SELECT F_ARTIST_ID 
+        FROM T_ARTIST 
+        WHERE F_NATIONALITY = F_ARTIST_NATIONALITY; 
+ 
+BEGIN 
+    SELECT COUNT(*) INTO ROW_COUNT 
+    FROM T_CUSTOMER 
+    WHERE F_NAME = F_NEW_NAME AND  
+        F_AREA_CODE = F_NEW_AREA_CODE AND  
+        F_PHONE_NUMBER = F_NEW_PHONE_NUMBER; 
+ 
+    IF ROW_COUNT > 0 THEN 
+        BEGIN 
+            DBMS_OUTPUT.PUT_LINE('THE CUSTOMER ALREADY EXISTS'); 
+            RETURN; 
+        END; 
+    END IF; 
+ 
+    INSERT INTO T_CUSTOMER( 
+        F_CUSTOMER_ID, 
+        F_NAME, 
+        F_STREET, 
+        F_CITY, 
+        F_STATE, 
+        F_ZIP, 
+        F_AREA_CODE, 
+        F_PHONE_NUMBER 
+    ) 
+    VALUES( 
+        SQ_CUSTOMER_ID.NEXTVAL,  
+        F_NEW_NAME,  
+        F_NEW_STREET, 
+        F_NEW_CITY, 
+        F_NEW_STATE, 
+        F_NEW_ZIP, 
+        F_NEW_AREA_CODE,  
+        F_NEW_PHONE_NUMBER 
+    ); 
+ 
+    FOR T_ARTIST IN ARTIST_CURSOR 
+        LOOP 
+        INSERT INTO T_CUSTOMER_ARTIST_INT ( 
+            F_CUSTOMER_ID,  
+            F_ARTIST_ID 
+        ) 
+        VALUES( 
+            SQ_CUSTOMER_ID.CURRVAL, 
+            T_ARTIST.F_ARTIST_ID 
+        ); 
+        END LOOP; 
+ 
+    DBMS_OUTPUT.PUT_LINE('THE CUSTOMER HAS BEEN ADDED'); 
+END; 

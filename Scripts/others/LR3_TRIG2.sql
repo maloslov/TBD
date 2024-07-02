@@ -1,0 +1,35 @@
+CREATE OR REPLACE TRIGGER TR_ON_WORK_INSERT 
+    AFTER INSERT  
+        ON T_WORK 
+        FOR EACH ROW 
+    DECLARE 
+        ROW_COUNT INTEGER(2); 
+    BEGIN 
+    
+    SELECT
+        COUNT(*) INTO ROW_COUNT FROM T_WORK 
+        WHERE F_WORK_ID = :NEW.F_WORK_ID;
+        
+        IF ROW_COUNT > 0 THEN
+        DBMS_OUTPUT.PUT_LINE('WORK ALREADY EXISTS');
+        RETURN;
+        END IF;
+        SELECT  
+            COUNT(*) INTO ROW_COUNT 
+        FROM  
+            T_TRANSACTION 
+        WHERE   
+            F_CUSTOMER_ID IS NULL AND 
+            :OLD.F_WORK_ID = :NEW.F_WORK_ID; 
+ 
+        IF ROW_COUNT > 0 THEN  
+                DBMS_OUTPUT.PUT_LINE('ROW ALREDY EXISTS'); 
+                RETURN; 
+        ELSE
+                INSERT INTO T_TRANSACTION(F_TRANSACTION_ID, F_DATE_ACQULRED, F_WORK_ID) 
+                VALUES (SQ_TRANSACTION_ID.NEXTVAL, SYSDATE, :NEW.F_WORK_ID);     
+        END IF;
+    END; 
+ /
+INSERT INTO T_WORK (F_WORK_ID, F_TITLE, F_COPY, F_ARTIST_ID)  
+VALUES (SQ_WORK_ID.NEXTVAL,'BLACK SQUARE','Yes','6'); 
